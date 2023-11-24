@@ -45,7 +45,7 @@ const tenderSchema = mongoose.Schema(
       required: [true, "Please add the bid source insurance"],
     },
     closingDateTime: {
-      type: String,
+      type: Date,
       required: [true, "Please add the closing date and time"],
     },
     location: {
@@ -65,7 +65,8 @@ const tenderSchema = mongoose.Schema(
       required: [true, "Please add the company name"],
     },
     tenderFile: {
-      type: Buffer,
+      type: String,
+      data:Buffer,
       required: [true, "Please add the tender document"],
     },
     tenderStatus: {
