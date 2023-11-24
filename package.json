@@ -1,0 +1,22 @@
+{
+  "name": "tenderpoa-backend",
+  "version": "1.0.0",
+  "description": "REST APIs for tender management built with express js",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cngetich37/tenderpoa-backend.git"
+  },
+  "author": "Collins Ngetich",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cngetich37/tenderpoa-backend/issues"
+  },
+  "homepage": "https://github.com/cngetich37/tenderpoa-backend#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
