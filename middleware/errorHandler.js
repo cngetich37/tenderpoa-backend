@@ -4,7 +4,7 @@ const errorHandler = (err, req, res, next) => {
 
   switch (statusCode) {
     case constants.VALIDATION_ERROR:
-      res.json({ title: "All fields are required!", message: err.message });
+      res.json({ title: "Validation Failed!", message: err.message });
       break;
     case constants.UNATHORIZED:
       res.json({ title: "Not Authorized!", message: err.message });
