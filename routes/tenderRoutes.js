@@ -5,7 +5,7 @@ const {
   getTender,
   updateTender,
   deleteTender,
-} = require("../controllers/tenderControllers");
+} = require("../controllers/tenderController");
 const router = express.Router();
 
 router.route("/").get(getAllTenders).post(createTender);
