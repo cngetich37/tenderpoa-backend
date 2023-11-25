@@ -1,4 +1,4 @@
-# Tenderpoa Management REST APIs
+# Tenderpoa REST APIs
 
 ## Overview
 
@@ -31,13 +31,13 @@ Before you begin, ensure you have the following prerequisites:
 1. Clone this repository:
 
    ```bash
-   git clone https://github.com/your-username/tender-management-api.git
+   git clone https://github.com/cngetich37/tenderpoa-backend.git
    ```
 
 2. Install dependencies:
 
    ```bash
-   cd tender-management-api
+   cd tenderpoa-backend
    npm install
    ```
 
