@@ -81,55 +81,46 @@ const currentUser = asyncHandler(async (req, res) => {
   res.json(req.user);
 });
 
+// @desc Forgot Password
+// @route POST /api/users/forgotpassword
+//@access public
 const forgotPassword = asyncHandler(async (req, res) => {
-  const userEmail = req.body.email;
-  const resetToken = "xyz";
+  const { email } = req.body;
+
+  // Check if the email exists
+  const user = users.findOne({ email });
+
+  if (!user) {
+    return res.status(404).json({ error: "User not found" });
+  }
+
+  // Generate JWT token for password reset
+  const token = jwt.sign({ userId: user.id }, process.env.ACCESS_TOKEN_SECRET, {
+    expiresIn: "1h", // Set the token expiration time (1 hour)
+  });
+
+  // Create a password reset link with the token
+  const resetLink = `http://tenderpoa.vercel.app/reset-password/${token}`;
+
+  // Send email with the password reset link
   const mailOptions = {
     from: process.env.EMAIL_USER,
-    to: userEmail,
-    subject: "Tenderpoa Password Reset",
-    text: `Click the following link to reset your password:http://tenderpoa.vercel.app/forgotpassword/${resetToken}`,
+    to: email,
+    subject: "TenderPoa Password Reset",
+    html: `Click the following link to reset your password: <a href="${resetLink}">${resetLink}</a>`,
   };
+
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
-      console.error(error);
-      res
-        .status(500)
-        .json({ success: false, message: "Failed to send reset email" });
-    } else {
-      console.log("Email sent:" + info.response);
-      res
-        .status(200)
-        .json({ success: true, message: "Reset email sent successfully " });
+      return res.status(500).json({ error: "Error sending email" });
     }
+    console.log("Email sent: " + info.response);
+    res.status(200).json({ message: "Password reset email sent successfully" });
   });
-});
-
-const resetPassword = asyncHandler(async (req, res) => {
-  const resetToken = req.params.token;
-
-  // Validate the token (you should implement this logic using your preferred method)
-
-  // Render a form for the user to reset their password
-  res.render("reset-password", { token: resetToken });
-});
-
-const resetPostPassword = asyncHandler(async (req, res) => {
-  const resetToken = req.params.token;
-  const newPassword = req.body.newPassword;
-
-  // Validate the token again (you should implement this logic)
-
-  // Update the user's password in your database
-  // ...
-
-  // Redirect or send a response indicating success
-  res.redirect("/");
 });
 module.exports = {
   registerUser,
   loginUser,
   currentUser,
   forgotPassword,
-  resetPassword,
 };

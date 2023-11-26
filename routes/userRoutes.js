@@ -46,8 +46,6 @@ router.post("/login", loginUser);
 router.get("/current", validToken, currentUser);
 
 router.post("/forgotpassword", forgotPassword);
-router.get("/reset-password/:token", validateToken, resetPassword);
 
-router.post("/reset-password/:token", validateToken, );
 
 module.exports = router;
