@@ -1,13 +1,20 @@
 const asyncHandler = require("express-async-handler");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const nodemailer = require("nodemailer");
 const User = require("../models/userModel");
 
 const transporter = nodemailer.createTransport({
   service: "gmail",
+  host: `smtp.gmail.com`,
+  port: 465,
+  secure: true,
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASSWORD,
+  },
+  tls: {
+    rejectUnauthorized: false,
   },
 });
 // @desc Register a user
@@ -65,7 +72,7 @@ const loginUser = asyncHandler(async (req, res) => {
         },
       },
       process.env.ACCESS_TOKEN_SECRET,
-      { expiresIn: "30mins" }
+      { expiresIn: "30m" }
     );
     res.status(200).json({ accessToken });
   } else {
@@ -88,31 +95,32 @@ const forgotPassword = asyncHandler(async (req, res) => {
   const { email } = req.body;
 
   // Check if the email exists
-  const user = users.findOne({ email });
+  const user = await User.findOne({ email });
 
   if (!user) {
-    return res.status(404).json({ error: "User not found" });
+    res.status(404);
+    throw new Error("User not found");
   }
 
   // Generate JWT token for password reset
-  const token = jwt.sign({ userId: user.id }, process.env.ACCESS_TOKEN_SECRET, {
+  const token = jwt.sign({ id: user.id }, process.env.ACCESS_TOKEN_SECRET, {
     expiresIn: "1h", // Set the token expiration time (1 hour)
   });
 
   // Create a password reset link with the token
-  const resetLink = `http://tenderpoa.vercel.app/reset-password/${token}`;
+  const resetPasswordLink = `http://tenderpoa.vercel.app/forgotpassword/${token}`;
 
   // Send email with the password reset link
   const mailOptions = {
     from: process.env.EMAIL_USER,
     to: email,
     subject: "TenderPoa Password Reset",
-    html: `Click the following link to reset your password: <a href="${resetLink}">${resetLink}</a>`,
+    html: `Click the following link to reset your password: <a href="${resetPasswordLink}">${resetPasswordLink}</a>`,
   };
 
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
-      return res.status(500).json({ error: "Error sending email" });
+      return res.status(500).json({ message: "Error sending email!" });
     }
     console.log("Email sent: " + info.response);
     res.status(200).json({ message: "Password reset email sent successfully" });
