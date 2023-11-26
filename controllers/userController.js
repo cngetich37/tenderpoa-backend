@@ -141,7 +141,6 @@ const forgotPassword = asyncHandler(async (req, res) => {
 const resetPassword = asyncHandler(async (req, res) => {
   const token = req.params.token;
   const newPassword = req.body.password;
-  console.log(token);
   if (!token) {
     res.status(401);
     throw new Error("invalid token or token is missing!");
@@ -166,15 +165,11 @@ const resetPassword = asyncHandler(async (req, res) => {
 
   // Update the user's password
   const hashedPassword = await bcrypt.hash(newPassword, 10);
-
-  console.log("User ID:", req.user.id);
-  console.log("Hashed Password:", hashedPassword);
   await User.findOneAndUpdate(
     { _id: req.user.id },
     { password: hashedPassword },
     { new: true }
   );
-  // Respond to the client
   res.json({ message: "Password reset successful" });
 });
 module.exports = {
