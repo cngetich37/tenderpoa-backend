@@ -4,6 +4,9 @@ const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
 const User = require("../models/userModel");
 
+
+
+
 const transporter = nodemailer.createTransport({
   service: "gmail",
   host: `smtp.gmail.com`,
@@ -17,6 +20,7 @@ const transporter = nodemailer.createTransport({
     rejectUnauthorized: false,
   },
 });
+
 // @desc Register a user
 // @route POST /api/users/signup
 // @access public
@@ -93,7 +97,10 @@ const currentUser = asyncHandler(async (req, res) => {
 //@access public
 const forgotPassword = asyncHandler(async (req, res) => {
   const { email } = req.body;
-
+  if (!email) {
+    res.status(400);
+    throw new Error("Email is required!");
+  }
   // Check if the email exists
   const user = await User.findOne({ email });
 
