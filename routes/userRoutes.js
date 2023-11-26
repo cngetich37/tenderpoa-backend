@@ -1,5 +1,4 @@
 const express = require("express");
-const nodemailer = require("nodemailer");
 const {
   registerUser,
   loginUser,
@@ -46,6 +45,6 @@ router.post("/login", loginUser);
 router.get("/current", validToken, currentUser);
 
 router.post("/forgotpassword", forgotPassword);
-
+router.post("/resetpassword/:token",resetPassword);
 
 module.exports = router;

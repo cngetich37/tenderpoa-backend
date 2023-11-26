@@ -4,9 +4,6 @@ const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
 const User = require("../models/userModel");
 
-
-
-
 const transporter = nodemailer.createTransport({
   service: "gmail",
   host: `smtp.gmail.com`,
@@ -110,12 +107,19 @@ const forgotPassword = asyncHandler(async (req, res) => {
   }
 
   // Generate JWT token for password reset
-  const token = jwt.sign({ id: user.id }, process.env.ACCESS_TOKEN_SECRET, {
-    expiresIn: "1h", // Set the token expiration time (1 hour)
-  });
+  const token = jwt.sign(
+    {
+      user: {
+        email: user.email,
+        id: user.id,
+      },
+    },
+    process.env.ACCESS_TOKEN_SECRET,
+    { expiresIn: "1hr" }
+  );
 
   // Create a password reset link with the token
-  const resetPasswordLink = `http://tenderpoa.vercel.app/forgotpassword/${token}`;
+  const resetPasswordLink = `http://tenderpoa.vercel.app/resetpassword${token}`;
 
   // Send email with the password reset link
   const mailOptions = {
@@ -133,9 +137,50 @@ const forgotPassword = asyncHandler(async (req, res) => {
     res.status(200).json({ message: "Password reset email sent successfully" });
   });
 });
+
+const resetPassword = asyncHandler(async (req, res) => {
+  const token = req.params.token;
+  const newPassword = req.body.password;
+  console.log(token);
+  if (!token) {
+    res.status(401);
+    throw new Error("invalid token or token is missing!");
+  }
+  // Verify the token and retrieve the user's email or user ID from the database
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
+    if (err) {
+      res.status(401);
+      throw new Error("User is not authorized");
+    }
+    if (!decoded || !decoded.user || !decoded.user.id) {
+      res.status(401);
+      throw new Error("Invalid token format. User ID not found.");
+    }
+    console.log(decoded.user);
+    req.user = decoded.user;
+  });
+  if (!newPassword) {
+    res.status(400);
+    throw new Error("Please provide the password!");
+  }
+
+  // Update the user's password
+  const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+  console.log("User ID:", req.user.id);
+  console.log("Hashed Password:", hashedPassword);
+  await User.findOneAndUpdate(
+    { _id: req.user.id },
+    { password: hashedPassword },
+    { new: true }
+  );
+  // Respond to the client
+  res.json({ message: "Password reset successful" });
+});
 module.exports = {
   registerUser,
   loginUser,
   currentUser,
   forgotPassword,
+  resetPassword,
 };
