@@ -119,7 +119,7 @@ const forgotPassword = asyncHandler(async (req, res) => {
   );
 
   // Create a password reset link with the token
-  const resetPasswordLink = `http://tenderpoa.vercel.app/reset-password/${token}`;
+  const resetPasswordLink = `https://tenderpoa.vercel.app/reset-password/${token}`;
 
   // Send email with the password reset link
   const mailOptions = {
