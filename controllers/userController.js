@@ -48,7 +48,7 @@ const registerUser = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("Invalid user details");
   }
-  res.json({ message: "Register a user" });
+  res.status(200).json({ message: "Account created!" });
 });
 
 // @desc Login a user
@@ -75,7 +75,7 @@ const loginUser = asyncHandler(async (req, res) => {
       process.env.ACCESS_TOKEN_SECRET,
       { expiresIn: "30m" }
     );
-    res.status(200).json({ accessToken });
+    res.status(200).json({ message: "Login successful" });
   } else {
     res.status(401);
     throw new Error("email or password is not valid");
@@ -155,7 +155,6 @@ const resetPassword = asyncHandler(async (req, res) => {
       res.status(401);
       throw new Error("Invalid token format. User ID not found.");
     }
-    console.log(decoded.user);
     req.user = decoded.user;
   });
   if (!newPassword) {
@@ -170,7 +169,7 @@ const resetPassword = asyncHandler(async (req, res) => {
     { password: hashedPassword },
     { new: true }
   );
-  res.json({ message: "Password reset successful" });
+  res.status(200).json({ message: "Password reset successful" });
 });
 module.exports = {
   registerUser,
