@@ -46,7 +46,7 @@ const registerUser = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("Invalid user details");
   }
-  res.status(200).json({ message: "Account created!" });
+  res.status(200).json({ message: "Account created successfully!" });
 });
 
 // @desc Login a user
