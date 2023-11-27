@@ -33,7 +33,6 @@ const registerUser = asyncHandler(async (req, res) => {
     throw new Error("User already exists!");
   }
   const hashPassword = await bcrypt.hash(confirmPassword, 10);
-  console.log("Hashed Password:", hashPassword);
   const user = await User.create({
     firstName,
     lastName,
@@ -41,7 +40,6 @@ const registerUser = asyncHandler(async (req, res) => {
     password: hashPassword,
     confirmPassword: hashPassword,
   });
-  console.log(`User created ${user}`);
   if (user) {
     res.status(201).json({ _id: user.id, email: user.email });
   } else {
