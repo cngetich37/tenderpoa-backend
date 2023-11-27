@@ -2,7 +2,7 @@
 
 ## Overview
 
-This repository contains a set of REST APIs for managing tenders. These APIs are designed to facilitate the creation, retrieval, updating, and deletion of tender-related information. The system is built to streamline the tender management process and provide a reliable interface for interacting with tender data.
+This repository contains a set of REST APIs for tracking tenders. These APIs are designed to facilitate the creation, retrieval, updating, and deletion of tender-related information. The system is built to streamline the tender management process and provide a reliable interface for interacting with tender data.
 
 ## Table of Contents
 
