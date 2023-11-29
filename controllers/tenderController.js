@@ -1,6 +1,7 @@
 const asyncHandler = require("express-async-handler");
 const Tender = require("../models/tenderModel");
 
+
 // @desc Get All Tenders
 // @route GET /api/tenders
 // @access private
@@ -31,7 +32,7 @@ const createTender = asyncHandler(async (req, res) => {
     tenderStatus,
   } = req.body;
 
-  const tenderFile = req.file.buffer;
+  // const tenderFile = req.file.buffer;
 
   if (
     !tenderNo ||
@@ -46,13 +47,14 @@ const createTender = asyncHandler(async (req, res) => {
     !tenderValue ||
     !dollarRate ||
     !company ||
-    !tenderFile ||
+    !req.files || !req.files.tenderFile || Object.keys(req.files.tenderFile).length === 0 ||
     !tenderStatus
   ) {
     res.status(400);
     throw new Error("All fields are mandatory!!!");
   }
-
+  const tenderFile = req.files.tenderFile.data;
+ 
   const tender = await Tender.create({
     tenderNo,
     tenderDescription,
@@ -69,7 +71,7 @@ const createTender = asyncHandler(async (req, res) => {
     tenderFile,
     tenderStatus,
   });
-
+  console.log(req.files.tenderFile, req.body);
   res.status(201).json(tender);
 });
 
