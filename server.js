@@ -12,7 +12,7 @@ connectDb();
 
 app.use(cors());
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use("/api/tenders", require("./routes/tenderRoutes"));
 app.use("/api/users", require("./routes/userRoutes"));
 app.use(errorHandler);

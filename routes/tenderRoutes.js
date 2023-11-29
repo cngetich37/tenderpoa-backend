@@ -1,5 +1,5 @@
 const express = require("express");
-const validateToken = require("../middleware/validateTokenHandler");
+// const validateToken = require("../middleware/validateTokenHandler");
 const {
   getAllTenders,
   createTender,
@@ -8,7 +8,8 @@ const {
   deleteTender,
 } = require("../controllers/tenderController");
 const router = express.Router();
-
+const multer = require("multer");
+const upload = multer();
 // router.use(validateToken);
 /**
  * @swagger
@@ -33,7 +34,7 @@ router.route("/").get(getAllTenders);
  *       400:
  *         description: Validation error
  */
-router.route("/").post(createTender);
+router.post("/", upload.single("tenderFile"), createTender);
 /**
  * @swagger
  * /api/tenders/:id:
