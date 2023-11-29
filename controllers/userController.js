@@ -101,7 +101,7 @@ const forgotPassword = asyncHandler(async (req, res) => {
 
   if (!user) {
     res.status(404);
-    throw new Error("User not found");
+    throw new Error("User not found!");
   }
 
   // Generate JWT token for password reset
