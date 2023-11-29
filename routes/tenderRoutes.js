@@ -9,7 +9,7 @@ const {
 } = require("../controllers/tenderController");
 const router = express.Router();
 
-router.use(validateToken);
+// router.use(validateToken);
 /**
  * @swagger
  * /api/tenders:
