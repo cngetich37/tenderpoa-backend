@@ -65,7 +65,6 @@ const createTender = asyncHandler(async (req, res) => {
     company,
     tenderFile,
     tenderStatus,
-    user_id: req.user.id,
   });
   res.status(201).json(tender);
 });
