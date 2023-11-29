@@ -4,7 +4,8 @@ const Tender = require("../models/tenderModel");
 // @route GET /api/tenders
 // @access private
 const getAllTenders = asyncHandler(async (req, res) => {
-  const tenders = await Tender.find({ user_id: req.user.id });
+  // const tenders = await Tender.find({ user_id: req.user.id });
+  const tenders = await Tender.find();
   res.status(200).json(tenders);
 });
 
