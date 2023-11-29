@@ -1,4 +1,5 @@
 const asyncHandler = require("express-async-handler");
+const multer = require("multer");
 const Tender = require("../models/tenderModel");
 // @desc Get All Tenders
 // @route GET /api/tenders
@@ -12,62 +13,67 @@ const getAllTenders = asyncHandler(async (req, res) => {
 // @desc Create Tender
 // @route POST /api/tenders
 // @access private
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
+const createTender = asyncHandler(
+  upload.single("tenderFile"),
+  async (req, res) => {
+    console.log("The request body is ", req.body);
+    const {
+      tenderNo,
+      tenderDescription,
+      client,
+      siteVisitDate,
+      timeExtension,
+      bidSecurity,
+      bidSourceInsurance,
+      closingDateTime,
+      location,
+      tenderValue,
+      dollarRate,
+      company,
+      tenderStatus,
+    } = req.body;
 
-const createTender = asyncHandler(async (req, res) => {
-  console.log("The request body is ", req.body);
-  const {
-    tenderNo,
-    tenderDescription,
-    client,
-    siteVisitDate,
-    timeExtension,
-    bidSecurity,
-    bidSourceInsurance,
-    closingDateTime,
-    location,
-    tenderValue,
-    dollarRate,
-    company,
-    tenderFile,
-    tenderStatus,
-  } = req.body;
-  if (
-    !tenderNo ||
-    !tenderDescription ||
-    !client ||
-    !siteVisitDate ||
-    !timeExtension ||
-    !bidSecurity ||
-    !bidSourceInsurance ||
-    !closingDateTime ||
-    !location ||
-    !tenderValue ||
-    !dollarRate ||
-    !company ||
-    !tenderFile ||
-    !tenderStatus
-  ) {
-    res.status(400);
-    throw new Error("All fields are mandatory!!!");
+    const tenderFile = req.file.buffer;
+    if (
+      !tenderNo ||
+      !tenderDescription ||
+      !client ||
+      !siteVisitDate ||
+      !timeExtension ||
+      !bidSecurity ||
+      !bidSourceInsurance ||
+      !closingDateTime ||
+      !location ||
+      !tenderValue ||
+      !dollarRate ||
+      !company ||
+      !tenderFile ||
+      !tenderStatus
+    ) {
+      res.status(400);
+      throw new Error("All fields are mandatory!!!");
+    }
+    const tender = await Tender.create({
+      tenderNo,
+      tenderDescription,
+      client,
+      siteVisitDate,
+      timeExtension,
+      bidSecurity,
+      bidSourceInsurance,
+      closingDateTime,
+      location,
+      tenderValue,
+      dollarRate,
+      company,
+      tenderFile,
+      tenderStatus,
+    });
+    res.status(201).json(tender);
   }
-  const tender = await Tender.create({
-    tenderNo,
-    tenderDescription,
-    client,
-    siteVisitDate,
-    timeExtension,
-    bidSecurity,
-    bidSourceInsurance,
-    closingDateTime,
-    location,
-    tenderValue,
-    dollarRate,
-    company,
-    tenderFile,
-    tenderStatus,
-  });
-  res.status(201).json(tender);
-});
+);
 
 // @desc Get a  Tender
 // @route GET /api/tenders/:id
