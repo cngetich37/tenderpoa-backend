@@ -8,8 +8,7 @@ const {
   deleteTender,
 } = require("../controllers/tenderController");
 const router = express.Router();
-const multer = require("multer");
-const upload = multer({ dest: './public/data/uploads/' });
+
 // router.use(validateToken);
 /**
  * @swagger
@@ -34,7 +33,7 @@ router.route("/").get(getAllTenders);
  *       400:
  *         description: Validation error
  */
-router.post("/", upload.single('tenderFile'), createTender);
+router.route("/").post(createTender)
 /**
  * @swagger
  * /api/tenders/:id:

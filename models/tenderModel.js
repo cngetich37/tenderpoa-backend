@@ -16,11 +16,11 @@ const mongoose = require("mongoose");
 // tenderStatus: "Not Bidded",
 const tenderSchema = mongoose.Schema(
   {
-    user_id: {
-      type: mongoose.Schema.Types.ObjectId,
-      required: true,
-      ref: "User",
-    },
+    // user_id: {
+    //   type: mongoose.Schema.Types.ObjectId,
+    //   required: true,
+    //   ref: "User",
+    // },
     tenderNo: {
       type: String,
       required: [true, "Please add the tender number"],
@@ -70,7 +70,8 @@ const tenderSchema = mongoose.Schema(
       required: [true, "Please add the company name"],
     },
     tenderFile: {
-      type: Buffer,
+      type: String,
+      data: Buffer,
       required: [true, "Please add the tender document"],
     },
     tenderStatus: {
