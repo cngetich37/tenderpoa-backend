@@ -48,23 +48,27 @@ const createTender = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("All fields are mandatory! ");
   }
-
-  await Tender.create({
-    tenderNo,
-    tenderDescription,
-    client,
-    siteVisitDate,
-    timeExtension,
-    bidSecurity,
-    bidSourceInsurance,
-    closingDateTime,
-    location,
-    tenderValue,
-    dollarRate,
-    company,
-    tenderStatus,
-  });
-  res.status(201).json({ message: "Tender added successfully" });
+  try {
+    await Tender.create({
+      tenderNo,
+      tenderDescription,
+      client,
+      siteVisitDate,
+      timeExtension,
+      bidSecurity,
+      bidSourceInsurance,
+      closingDateTime,
+      location,
+      tenderValue,
+      dollarRate,
+      company,
+      tenderStatus,
+    });
+    res.status(201).json({ message: "Tender added successfully" });
+  } catch (error) {
+    console.error("Error adding tender:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
 });
 
 // @desc Get a  Tender
@@ -78,6 +82,25 @@ const getTender = asyncHandler(async (req, res) => {
   }
   res.status(200).json(tender);
 });
+
+// @desc Get a Intracom tenders
+// @route GET /api/tenders/intracom
+// @access private
+const getIntracomTenders = asyncHandler(async (req, res) => {
+  try {
+    const tenders = await Tender.find({ company: { $regex: /Intracom Africa Ltd/i } });
+
+    if (tenders.length === 0) {
+      res.status(404).json({ message: "No Intracom tenders found" });
+    } else {
+      res.status(200).json(tenders);
+    }
+  } catch (error) {
+    console.error("Error fetching Intracom tenders:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
 // @desc Update a  Tender
 // @route PUT /api/tenders/:id
 // @access private
@@ -113,10 +136,15 @@ const deleteTender = asyncHandler(async (req, res) => {
   await Tender.deleteOne({ _id: req.params.id });
   res.status(200).json(tender);
 });
+
+
+
+
 module.exports = {
   getAllTenders,
   createTender,
   getTender,
   updateTender,
   deleteTender,
+  getIntracomTenders,
 };
