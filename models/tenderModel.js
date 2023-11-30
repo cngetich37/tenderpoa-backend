@@ -24,6 +24,7 @@ const tenderSchema = mongoose.Schema(
     tenderNo: {
       type: String,
       required: [true, "Please add the tender number"],
+      unique: [true, "Tender already exists!"],
     },
     tenderDescription: {
       type: String,
