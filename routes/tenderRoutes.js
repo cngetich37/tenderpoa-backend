@@ -11,6 +11,7 @@ const {
   getBenesseTenders,
   getBiddedTenders,
   getDueTenders,
+  getClosedTenders,
 } = require("../controllers/tenderController");
 const router = express.Router();
 
@@ -31,6 +32,7 @@ router.route("/saava").get(getSaavaTenders);
 router.route("/benesse").get(getBenesseTenders);
 router.route("/bidded").get(getBiddedTenders);
 router.route("/due").get(getDueTenders);
+router.route("/closed").get(getClosedTenders);
 /**
  * @swagger
  * /api/tenders/:

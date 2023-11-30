@@ -97,7 +97,18 @@ const getBiddedTenders = asyncHandler(async (req, res) => {
   }
   res.status(200).json(tenders);
 });
-
+// @desc Get Closed Tenders
+// @route GET /api/tenders/bidded
+// @access private
+const getClosedTenders = asyncHandler(async (req, res) => {
+  // const tenders = await Tender.find({ user_id: req.user.id });
+  const tenders = await Tender.find({ tenderStatus: { $regex: /^Closed$/i } });
+  if (tenders.length === 0) {
+    res.status(404);
+    throw new Error("No Closed tenders found");
+  }
+  res.status(200).json(tenders);
+});
 // @desc Get Due Tenders
 // @route GET /api/tenders/due
 // @access private
@@ -221,4 +232,5 @@ module.exports = {
   getBenesseTenders,
   getBiddedTenders,
   getDueTenders,
+  getClosedTenders
 };
