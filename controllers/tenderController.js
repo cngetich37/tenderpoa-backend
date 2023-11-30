@@ -85,14 +85,32 @@ const getTender = asyncHandler(async (req, res) => {
   res.status(200).json(tender);
 });
 
-// @desc Get All Tenders
+// @desc Get Bidded Tenders
 // @route GET /api/tenders/bidded
 // @access private
 const getBiddedTenders = asyncHandler(async (req, res) => {
   // const tenders = await Tender.find({ user_id: req.user.id });
   const tenders = await Tender.find({ tenderStatus: { $regex: /^Bidded$/i } });
+  if (tenders.length === 0) {
+    res.status(404);
+    throw new Error("No Bidded tenders found");
+  }
   res.status(200).json(tenders);
 });
+
+// @desc Get Due Tenders
+// @route GET /api/tenders/due
+// @access private
+const getDueTenders = asyncHandler(async (req, res) => {
+  // const tenders = await Tender.find({ user_id: req.user.id });
+  const tenders = await Tender.find({ tenderStatus: { $regex: /^Due$/i } });
+  if (tenders.length === 0) {
+    res.status(404);
+    throw new Error("No Due tenders found");
+  }
+  res.status(200).json(tenders);
+});
+
 // @desc Get a Intracom tenders
 // @route GET /api/tenders/intracom
 // @access private
@@ -201,5 +219,6 @@ module.exports = {
   getIntracomTenders,
   getSaavaTenders,
   getBenesseTenders,
-  getBiddedTenders
+  getBiddedTenders,
+  getDueTenders,
 };

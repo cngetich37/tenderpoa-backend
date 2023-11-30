@@ -10,6 +10,7 @@ const {
   getSaavaTenders,
   getBenesseTenders,
   getBiddedTenders,
+  getDueTenders,
 } = require("../controllers/tenderController");
 const router = express.Router();
 
@@ -29,6 +30,7 @@ router.route("/intracom").get(getIntracomTenders);
 router.route("/saava").get(getSaavaTenders);
 router.route("/benesse").get(getBenesseTenders);
 router.route("/bidded").get(getBiddedTenders);
+router.route("/due").get(getDueTenders);
 /**
  * @swagger
  * /api/tenders/:
