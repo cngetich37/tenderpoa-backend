@@ -68,7 +68,7 @@ const createTender = asyncHandler(async (req, res) => {
     tenderFile,
     tenderStatus,
   });
-  res.status(201).json(tender);
+  res.status(201).json({ message: "Tender added successfully" });
 });
 
 // @desc Get a  Tender
