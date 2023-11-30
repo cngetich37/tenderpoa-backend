@@ -6,7 +6,7 @@ const Tender = require("../models/tenderModel");
 // @access private
 const getAllTenders = asyncHandler(async (req, res) => {
   // const tenders = await Tender.find({ user_id: req.user.id });
-  const tenders = await Tender.find();
+  const tenders = await Tender.find({tenderStatus:{ $regex: /Not Bidded/i }});
   res.status(200).json(tenders);
 });
 
@@ -130,6 +130,7 @@ const getBenesseTenders = asyncHandler(async (req, res) => {
   try {
     const tenders = await Tender.find({
       company: { $regex: /Benesse EA. Ltd/i },
+      tenderStatus:{ $regex: /Not Bidded/i },
     });
 
     if (tenders.length === 0) {
