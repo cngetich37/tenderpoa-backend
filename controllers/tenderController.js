@@ -49,7 +49,7 @@ const createTender = asyncHandler(async (req, res) => {
     !tenderStatus
   ) {
     res.status(400);
-    throw new Error("All fields are mandatory!!!");
+    throw new Error("All fields are mandatory! ");
   }
 
   const tender = await Tender.create({
