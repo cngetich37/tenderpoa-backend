@@ -7,6 +7,7 @@ const {
   updateTender,
   deleteTender,
   getIntracomTenders,
+  getSaavaTenders,
 } = require("../controllers/tenderController");
 const router = express.Router();
 
@@ -23,6 +24,7 @@ const router = express.Router();
  */
 router.route("/").get(getAllTenders);
 router.route("/intracom").get(getIntracomTenders);
+router.route("/saava").get(getSaavaTenders);
 /**
  * @swagger
  * /api/tenders/:

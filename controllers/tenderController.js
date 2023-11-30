@@ -101,6 +101,24 @@ const getIntracomTenders = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc Get a Saava tenders
+// @route GET /api/tenders/saava
+// @access private
+const getSaavaTenders = asyncHandler(async (req, res) => {
+  try {
+    const tenders = await Tender.find({ company: { $regex: /Saava Eng. Ltd/i } });
+
+    if (tenders.length === 0) {
+      res.status(404).json({ message: "No Saava tenders found" });
+    } else {
+      res.status(200).json(tenders);
+    }
+  } catch (error) {
+    console.error("Error fetching Saava tenders:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
 // @desc Update a  Tender
 // @route PUT /api/tenders/:id
 // @access private
@@ -147,4 +165,5 @@ module.exports = {
   updateTender,
   deleteTender,
   getIntracomTenders,
+  getSaavaTenders
 };
