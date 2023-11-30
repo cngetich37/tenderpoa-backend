@@ -42,7 +42,7 @@ const tenderSchema = mongoose.Schema(
       required: [true, "Please add the time extension"],
     },
     bidSecurity: {
-      type: String,
+      type: Number,
       required: [true, "Please add the bid security"],
     },
     bidSourceInsurance: {
