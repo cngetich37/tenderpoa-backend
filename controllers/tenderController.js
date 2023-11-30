@@ -31,7 +31,6 @@ const createTender = asyncHandler(async (req, res) => {
     tenderFile,
     tenderStatus,
   } = req.body;
-
   if (
     !tenderNo ||
     !tenderDescription ||

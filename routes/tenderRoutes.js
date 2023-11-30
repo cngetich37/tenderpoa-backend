@@ -33,7 +33,7 @@ router.route("/").get(getAllTenders);
  *       400:
  *         description: Validation error
  */
-router.route("/").post(createTender)
+router.route("/").post(createTender);
 /**
  * @swagger
  * /api/tenders/:id:
