@@ -69,11 +69,6 @@ const tenderSchema = mongoose.Schema(
       type: String,
       required: [true, "Please add the company name"],
     },
-    tenderFile: {
-      type: String,
-      data: Buffer,
-      required: [true, "Please add the tender document"],
-    },
     tenderStatus: {
       type: String,
       required: [true, "Please add the status"],
