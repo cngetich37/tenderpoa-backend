@@ -28,7 +28,6 @@ const createTender = asyncHandler(async (req, res) => {
     tenderValue,
     dollarRate,
     company,
-    tenderFile,
     tenderStatus,
   } = req.body;
   if (
@@ -44,7 +43,6 @@ const createTender = asyncHandler(async (req, res) => {
     !tenderValue ||
     !dollarRate ||
     !company ||
-    !tenderFile ||
     !tenderStatus
   ) {
     res.status(400);
@@ -64,7 +62,6 @@ const createTender = asyncHandler(async (req, res) => {
     tenderValue,
     dollarRate,
     company,
-    tenderFile,
     tenderStatus,
   });
   res.status(201).json({ message: "Tender added successfully" });
