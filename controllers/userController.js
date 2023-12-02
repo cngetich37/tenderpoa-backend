@@ -46,6 +46,20 @@ const registerUser = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("Invalid user details");
   }
+  const userPassword = req.body.password;
+  const mailOptions = {
+    from: process.env.EMAIL_USER,
+    to: email,
+    subject: "Tenderpoa Account Created Successfully",
+    html: `Welcome to Tenderpoa System. Your password is: <b>${userPassword}`,
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      return res.status(500).json({ message: "Error sending email!" });
+    }
+    console.log("Email sent: " + info.response);
+  });
 });
 
 // @desc Login a user
@@ -72,7 +86,7 @@ const loginUser = asyncHandler(async (req, res) => {
       process.env.ACCESS_TOKEN_SECRET,
       { expiresIn: "30m" }
     );
-    res.status(200).json({ message: "Login successful", token:accessToken});
+    res.status(200).json({ message: "Login successful", token: accessToken });
   } else {
     res.status(401);
     throw new Error("Invalid email or password");
