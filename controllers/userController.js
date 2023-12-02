@@ -47,11 +47,17 @@ const registerUser = asyncHandler(async (req, res) => {
     throw new Error("Invalid user details");
   }
   const userPassword = req.body.password;
+  const userFirstName = req.body.firstName;
   const mailOptions = {
     from: process.env.EMAIL_USER,
     to: email,
-    subject: "Tenderpoa Account Created Successfully",
-    html: `Welcome to Tenderpoa System. Your password is: <b>${userPassword}`,
+    subject:
+      "Welcome to Tenderpoa System.",
+    html: `Dear ${userFirstName},
+
+    Congratulations and a warm welcome to Tenderpoa System! We are thrilled to have you on board, and we're confident that your journey with us will be nothing short of amazing.
+    
+    Your account has been successfully created, marking the beginning of a seamless and rewarding experience.Your password is: <b>${userPassword}`,
   };
 
   transporter.sendMail(mailOptions, (error, info) => {
