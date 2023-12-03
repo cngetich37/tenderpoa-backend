@@ -58,13 +58,17 @@ const tenderSchema = mongoose.Schema(
       type: String,
       required: [true, "Please add the location"],
     },
-    tenderValue: {
+    tenderValueDollars: {
       type: Number,
       required: [true, "Please add the tender value"],
     },
     dollarRate: {
       type: Number,
       required: [true, "Please add the dollar rate"],
+    },
+    tenderValueKsh: {
+      type: Number,
+      required: [true, "Please add the tender value"],
     },
     company: {
       type: String,

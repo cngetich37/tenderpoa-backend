@@ -27,8 +27,9 @@ const createTender = asyncHandler(async (req, res) => {
     bidSourceInsurance,
     closingDateTime,
     location,
-    tenderValue,
+    tenderValueDollars,
     dollarRate,
+    tenderValueKsh,
     company,
     tenderStatus,
   } = req.body;
@@ -42,8 +43,9 @@ const createTender = asyncHandler(async (req, res) => {
     !bidSourceInsurance ||
     !closingDateTime ||
     !location ||
-    !tenderValue ||
+    !tenderValueDollars ||
     !dollarRate ||
+    !tenderValueKsh||
     !company ||
     !tenderStatus
   ) {
@@ -61,8 +63,9 @@ const createTender = asyncHandler(async (req, res) => {
       bidSourceInsurance,
       closingDateTime,
       location,
-      tenderValue,
+      tenderValueDollars,
       dollarRate,
+      tenderValueKsh,
       company,
       tenderStatus,
     });
