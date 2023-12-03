@@ -140,7 +140,7 @@ Authorization: Bearer your-api-key
 - **Method**: `GET`
 - **Description**: Get tenders that are already bidded
 
-#### 7. Get Bidded Tenders
+#### 7. Get Closed Tenders
 
 - **URL**: `/api/tenders/closed`
 - **Method**: `GET`
