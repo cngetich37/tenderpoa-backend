@@ -76,6 +76,34 @@ Authorization: Bearer your-api-key
 
 ### Endpoints
 
+### Users Endpoints
+
+#### 1. Register a User
+
+- **URL**: `/api/users/signup`
+- **Method**: `POST`
+- **Description**: register a user with the system.
+
+#### 2. Login a User
+
+- **URL**: `/api/users/login`
+- **Method**: `POST`
+- **Description**: Authenticate a user using json web tokens
+
+#### 3. Account Recovery
+
+- **URL**: `/api/users/forgot-password`
+- **Method**: `POST`
+- **Description**: It enables the user to recover the account when he/she forgets the password
+
+#### 4. Reset Password
+
+- **URL**: `/api/users/reset-password/:token`
+- **Method**: `POST`
+- **Description**: User resets the password for the account
+
+### Tenders Endpoints
+
 #### 1. Get All Tenders
 
 - **URL**: `/api/tenders`

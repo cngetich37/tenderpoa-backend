@@ -107,7 +107,7 @@ const currentUser = asyncHandler(async (req, res) => {
 });
 
 // @desc Forgot Password
-// @route POST /api/users/forgotpassword
+// @route POST /api/users/forgot-password
 //@access public
 const forgotPassword = asyncHandler(async (req, res) => {
   const { email } = req.body;
@@ -154,6 +154,10 @@ const forgotPassword = asyncHandler(async (req, res) => {
     res.status(200).json({ message: "Password reset email sent successfully" });
   });
 });
+
+// @desc Reset Password
+// @route POST /api/users/reset-password/:token
+//@access public
 
 const resetPassword = asyncHandler(async (req, res) => {
   const token = req.params.token;
