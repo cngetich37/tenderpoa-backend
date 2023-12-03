@@ -120,18 +120,24 @@ Response:
 ```json
 [
   {
-    "id": "1",
-    "title": "Sample Tender 1",
-    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    "deadline": "2023-12-31",
-    "status": "Open"
-  },
-  {
-    "id": "2",
-    "title": "Sample Tender 2",
-    "description": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-    "deadline": "2023-11-30",
-    "status": "Closed"
+    "_id": "656c398439682bd462d9182a",
+    "tenderNo": "ICT/Y/78/23",
+    "tenderDescription": "Supply of routers and switches",
+    "client": "Liquid Telecom",
+    "siteVisitDate": "2023-11-30T09:14:59.462Z",
+    "timeExtension": "4",
+    "bidSecurity": 250000,
+    "bidSourceInsurance": "Bank",
+    "closingDateTime": "2023-11-30T09:14:59.462Z",
+    "location": "Kilimani",
+    "tenderValueDollars": 10000,
+    "dollarRate": 150,
+    "tenderValueKsh": 1500000,
+    "company": "Company A",
+    "tenderStatus": "Not Bidded",
+    "createdAt": "2023-12-03T08:17:08.476Z",
+    "updatedAt": "2023-12-03T08:17:08.476Z",
+    "__v": 0
   }
 ]
 ```
