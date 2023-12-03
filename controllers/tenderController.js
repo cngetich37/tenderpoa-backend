@@ -101,7 +101,7 @@ const getBiddedTenders = asyncHandler(async (req, res) => {
   res.status(200).json(tenders);
 });
 // @desc Get Closed Tenders
-// @route GET /api/tenders/bidded
+// @route GET /api/tenders/closed
 // @access private
 const getClosedTenders = asyncHandler(async (req, res) => {
   // const tenders = await Tender.find({ user_id: req.user.id });

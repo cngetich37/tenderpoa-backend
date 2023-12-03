@@ -106,6 +106,30 @@ Authorization: Bearer your-api-key
 - **Method**: `DELETE`
 - **Description**: Delete a specific tender by its ID.
 
+#### 6. Get Bidded Tenders
+
+- **URL**: `/api/tenders/bidded`
+- **Method**: `GET`
+- **Description**: Get tenders that are already bidded
+
+#### 7. Get Bidded Tenders
+
+- **URL**: `/api/tenders/closed`
+- **Method**: `GET`
+- **Description**: Get tenders that are closed.
+
+#### 8. Get Due Tenders
+
+- **URL**: `/api/tenders/due`
+- **Method**: `GET`
+- **Description**: Get tenders that are due.
+
+#### 9. Get Open Tenders
+
+- **URL**: `/api/tenders/`
+- **Method**: `GET`
+- **Description**: Get tenders that have tender status as Not Bidded
+
 ## Examples
 
 ### Get All Tenders
