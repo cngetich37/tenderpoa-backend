@@ -45,7 +45,7 @@ const createTender = asyncHandler(async (req, res) => {
     !location ||
     !tenderValueDollars ||
     !dollarRate ||
-    !tenderValueKsh||
+    !tenderValueKsh ||
     !company ||
     !tenderStatus
   ) {
@@ -197,14 +197,14 @@ const updateTender = asyncHandler(async (req, res) => {
     res.status(404);
     throw new Error("Tender Not Found!");
   }
-  if (tender.user_id.toString() !== req.user.id) {
-    res.status(403);
-    throw new Error("User don't have permission to update other user's tender");
-  }
-  const updateTender = await Tender.findByIdAndUpdate(req.params.id, req.body, {
+  // if (tender.user_id.toString() !== req.user.id) {
+  //   res.status(403);
+  //   throw new Error("User don't have permission to update other user's tender");
+  // }
+  await Tender.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
   });
-  res.status(200).json(updateTender);
+  res.status(200).json({ message: "Tender Updated successfully!" });
 });
 
 // @desc Delete a  Tender
@@ -216,10 +216,10 @@ const deleteTender = asyncHandler(async (req, res) => {
     res.status(404);
     throw new Error("Tender Not Found!");
   }
-  if (tender.user_id.toString() !== req.user.id) {
-    res.status(403);
-    throw new Error("User don't have permission to delete other user's tender");
-  }
+  // if (tender.user_id.toString() !== req.user.id) {
+  //   res.status(403);
+  //   throw new Error("User don't have permission to delete other user's tender");
+  // }
   await Tender.deleteOne({ _id: req.params.id });
   res.status(200).json(tender);
 });
@@ -235,5 +235,5 @@ module.exports = {
   getBenesseTenders,
   getBiddedTenders,
   getDueTenders,
-  getClosedTenders
+  getClosedTenders,
 };
