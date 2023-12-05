@@ -1,5 +1,5 @@
 const express = require("express");
-const validateToken = require("../middleware/validateTokenHandler");
+// const validateToken = require("../middleware/validateTokenHandler");
 const {
   getAllTenders,
   createTender,
@@ -15,7 +15,7 @@ const {
 } = require("../controllers/tenderController");
 const router = express.Router();
 
-router.use(validateToken);
+// router.use(validateToken);
 /**
  * @swagger
  * /api/tenders:
