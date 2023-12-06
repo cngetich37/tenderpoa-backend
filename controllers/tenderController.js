@@ -52,6 +52,11 @@ const createTender = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("All fields are mandatory! ");
   }
+  const tenderAvailable = await Tender.findOne({ tenderNo });
+  if (tenderAvailable) {
+    res.status(400);
+    throw new Error("Tender already exists!");
+  }
   try {
     await Tender.create({
       tenderNo,
