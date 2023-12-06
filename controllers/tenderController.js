@@ -226,7 +226,7 @@ const deleteTender = asyncHandler(async (req, res) => {
   //   throw new Error("User don't have permission to delete other user's tender");
   // }
   await Tender.deleteOne({ _id: req.params.id });
-  res.status(200).json(tender);
+  res.status(200).json({ message: "Tender Deleted successfully!" });
 });
 
 module.exports = {
