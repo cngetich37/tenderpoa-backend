@@ -209,7 +209,7 @@ const updateTender = asyncHandler(async (req, res) => {
   await Tender.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
   });
-  res.status(200).json({ message: "Tender Updated successfully!" });
+  res.status(200).json({ message: "Bidded successfully!" });
 });
 
 // @desc Delete a  Tender
