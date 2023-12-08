@@ -81,6 +81,60 @@ const createTender = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc Update Due Tenders
+// @route PUT /api/tenders/updateDueTenders
+// @access private
+
+const updateDueTenders = asyncHandler(async (req, res) => {
+  const dueTenders = await Tender.find({
+    closingDateTime: { $lte: new Date() },
+  });
+
+  // Check if any due tenders are found
+  if (dueTenders.length > 0) {
+    // Iterate through due tenders and update the tenderStatus
+    for (const tender of dueTenders) {
+      await Tender.findByIdAndUpdate(
+        tender._id,
+        { tenderStatus: "Due" },
+        { new: true }
+      );
+    }
+    // Optionally, you can send a response indicating successful update
+    res.status(200).json({ message: "Tender statuses updated successfully." });
+  } else {
+    // No due tenders found
+    res.status(404).json({ message: "No due tenders found." });
+  }
+});
+
+// @desc Update Due Tenders
+// @route PUT /api/tenders/updateDueTenders
+// @access private
+
+const closedTenders = asyncHandler(async (req, res) => {
+  const closedTender = await Tender.find({
+    closingDateTime: { $lt: new Date() },
+  });
+
+  // Check if any due tenders are found
+  if (closedTender.length > 0) {
+    // Iterate through due tenders and update the tenderStatus
+    for (const tender of closedTender) {
+      await Tender.findByIdAndUpdate(
+        tender._id,
+        { tenderStatus: "Closed" },
+        { new: true }
+      );
+    }
+    // Optionally, you can send a response indicating successful update
+    res.status(200).json({ message: "Tender statuses updated successfully." });
+  } else {
+    // No due tenders found
+    res.status(404).json({ message: "No Closed tenders found." });
+  }
+});
+
 // @desc Get Bidded Tenders
 // @route GET /api/tenders/bidded
 // @access private
@@ -228,4 +282,6 @@ module.exports = {
   getBiddedTenders,
   getDueTenders,
   getClosedTenders,
+  updateDueTenders,
+  closedTenders
 };
