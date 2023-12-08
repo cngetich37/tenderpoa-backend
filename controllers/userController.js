@@ -132,7 +132,7 @@ const forgotPassword = asyncHandler(async (req, res) => {
       },
     },
     process.env.ACCESS_TOKEN_SECRET,
-    { expiresIn: "1hr" }
+    { expiresIn: "10m" }
   );
 
   // Create a password reset link with the token
