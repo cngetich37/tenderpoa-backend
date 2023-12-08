@@ -3,7 +3,6 @@ const express = require("express");
 const {
   getAllTenders,
   createTender,
-  getTender,
   updateTender,
   deleteTender,
   getIntracomTenders,
@@ -27,6 +26,7 @@ const router = express.Router();
  *         description: Return all the tenders!
  */
 router.route("/").get(getAllTenders);
+// router.route("/updatedue").put(updateDueTenders);
 router.route("/intracom").get(getIntracomTenders);
 router.route("/saava").get(getSaavaTenders);
 router.route("/benesse").get(getBenesseTenders);
@@ -56,7 +56,7 @@ router.route("/").post(createTender);
  *     404:
  *     description: Tender not found
  */
-router.route("/:id").get(getTender);
+// router.route("/:id").get(getTender);
 /**
  * @swagger
  * /api/tenders/:id:

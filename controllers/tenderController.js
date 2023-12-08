@@ -7,7 +7,7 @@ const Tender = require("../models/tenderModel");
 const getAllTenders = asyncHandler(async (req, res) => {
   // const tenders = await Tender.find({ user_id: req.user.id });
   const tenders = await Tender.find({
-    tenderStatus: { $regex: /^Not Bidded$/i },
+    tenderStatus: { $regex: /^Open$/i },
   });
   res.status(200).json(tenders);
 });
@@ -81,18 +81,6 @@ const createTender = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc Get a  Tender
-// @route GET /api/tenders/:id
-// @access private
-const getTender = asyncHandler(async (req, res) => {
-  const tender = await Tender.findById(req.params.id);
-  if (!tender) {
-    res.status(404);
-    throw new Error("Tender Not Found!");
-  }
-  res.status(200).json(tender);
-});
-
 // @desc Get Bidded Tenders
 // @route GET /api/tenders/bidded
 // @access private
@@ -137,7 +125,7 @@ const getIntracomTenders = asyncHandler(async (req, res) => {
   try {
     const tenders = await Tender.find({
       company: { $regex: /Intracom Africa Ltd/i },
-      tenderStatus: { $regex: /^Not Bidded$/i },
+      tenderStatus: { $regex: /^Open$/i },
     });
 
     if (tenders.length === 0) {
@@ -158,7 +146,7 @@ const getSaavaTenders = asyncHandler(async (req, res) => {
   try {
     const tenders = await Tender.find({
       company: { $regex: /Saava Eng. Ltd/i },
-      tenderStatus: { $regex: /^Not Bidded$/i },
+      tenderStatus: { $regex: /^Open$/i },
     });
 
     if (tenders.length === 0) {
@@ -179,7 +167,7 @@ const getBenesseTenders = asyncHandler(async (req, res) => {
   try {
     const tenders = await Tender.find({
       company: { $regex: /Benesse EA. Ltd/i },
-      tenderStatus: { $regex: /^Not Bidded$/i },
+      tenderStatus: { $regex: /^Open$/i },
     });
 
     if (tenders.length === 0) {
@@ -232,7 +220,6 @@ const deleteTender = asyncHandler(async (req, res) => {
 module.exports = {
   getAllTenders,
   createTender,
-  getTender,
   updateTender,
   deleteTender,
   getIntracomTenders,
