@@ -192,7 +192,7 @@ Response:
     "dollarRate": 150,
     "tenderValueKsh": 1500000,
     "company": "Company A",
-    "tenderStatus": "Not Bidded",
+    "tenderStatus": "Open",
     "createdAt": "2023-12-03T08:17:08.476Z",
     "updatedAt": "2023-12-03T08:17:08.476Z",
     "__v": 0
