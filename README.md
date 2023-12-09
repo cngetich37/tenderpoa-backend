@@ -122,11 +122,11 @@ Authorization: Bearer your-api-key
 - **Method**: `POST`
 - **Description**: Create a new tender.
 
-#### 4. Update Tender by ID
+#### 4. Make Bid
 
 - **URL**: `/api/tenders/:id`
 - **Method**: `PUT`
-- **Description**: Update details of a specific tender by its ID.
+- **Description**: Update details of an open tender to bidded once the bidder has bidded the tender.
 
 #### 5. Delete Tender by ID
 
