@@ -135,7 +135,7 @@ const closedTenders = asyncHandler(async (req, res) => {
     res.status(200).json({ message: "Tender statuses updated successfully." });
   } else {
     // No due tenders found
-    res.status(404).json({ message: "No Closed tenders found." });
+    res.status(404).json({ message: "No new Closed tenders found!" });
   }
 });
 
