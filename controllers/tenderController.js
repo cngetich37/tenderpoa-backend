@@ -161,7 +161,7 @@ const getClosedTenders = asyncHandler(async (req, res) => {
     res.status(404);
     throw new Error("No Closed tenders found");
   }
-  res.status(200).json({message:"Available Closed Tenders"});
+  res.status(200).json(tenders);
 });
 // @desc Get Due Tenders
 // @route GET /api/tenders/due
