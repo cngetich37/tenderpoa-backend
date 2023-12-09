@@ -12,6 +12,7 @@ const {
   getDueTenders,
   getClosedTenders,
   updateDueTenders,
+  closedTenders,
 } = require("../controllers/tenderController");
 const router = express.Router();
 
@@ -35,6 +36,7 @@ router.route("/bidded").get(getBiddedTenders);
 router.route("/due").get(getDueTenders);
 router.route("/closed").get(getClosedTenders);
 router.route("/update-due").put(updateDueTenders);
+router.route("/closed-tenders").put(closedTenders);
 /**
  * @swagger
  * /api/tenders/:

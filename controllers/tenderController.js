@@ -86,10 +86,11 @@ const createTender = asyncHandler(async (req, res) => {
 // @access private
 
 const updateDueTenders = asyncHandler(async (req, res) => {
+  const today = new Date();
   const dueTenders = await Tender.find({
-    closingDateTime: { $lte: new Date() },
+    closingDateTime: { $lte: today },
+    tenderStatus: "Open",
   });
-
   // Check if any due tenders are found
   if (dueTenders.length > 0) {
     // Iterate through due tenders and update the tenderStatus
@@ -109,12 +110,15 @@ const updateDueTenders = asyncHandler(async (req, res) => {
 });
 
 // @desc Update Due Tenders
-// @route PUT /api/tenders/updateDueTenders
+// @route PUT /api/tenders/closed-tenders
 // @access private
 
 const closedTenders = asyncHandler(async (req, res) => {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
   const closedTender = await Tender.find({
-    closingDateTime: { $lt: new Date() },
+    closingDateTime: { $lt: today },
+    tenderStatus: "Due",
   });
 
   // Check if any due tenders are found
@@ -283,5 +287,5 @@ module.exports = {
   getDueTenders,
   getClosedTenders,
   updateDueTenders,
-  closedTenders
+  closedTenders,
 };
