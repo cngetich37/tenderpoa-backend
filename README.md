@@ -156,7 +156,19 @@ Authorization: Bearer your-api-key
 
 - **URL**: `/api/tenders/`
 - **Method**: `GET`
-- **Description**: Get tenders that have tender status as Not Bidded
+- **Description**: Get tenders that have tender status as Open
+
+#### 10. Update Tender Status to Due when it is due
+
+- **URL**: `/api/tenders/update-due`
+- **Method**: `PUT`
+- **Description**: Update the Tender status to Due when it is due and still open( closing date time is current date)
+
+#### 11. Update Tender Status to Closed when it is past Due date
+
+- **URL**: `/api/tenders/closed-tenders`
+- **Method**: `PUT`
+- **Description**: Update the Tender status to Closed when it is past due date and still open( closing date time is current date)
 
 ## Examples
 
