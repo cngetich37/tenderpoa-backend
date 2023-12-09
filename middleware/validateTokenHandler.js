@@ -12,11 +12,20 @@ const validToken = asyncHandler(async (req, res, next) => {
         throw new Error("User is not authorized");
       }
       req.user = decoded.user;
+
       next();
     });
+
+    const decodedToken = jwt.decode(token);
+    const expirationTime = decodedToken.exp;
+    console.log(
+      "Token expiration Time is:",
+      new Date(expirationTime * 1000).toISOString()
+    );
+
     if (!token) {
       res.status(401);
-      throw new Error("User is not authorized or token is missing!")
+      throw new Error("User is not authorized or token is missing!");
     }
   }
 });
